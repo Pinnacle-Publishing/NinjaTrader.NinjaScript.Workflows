@@ -1,7 +1,6 @@
 ﻿name: Build
 
 on:
-
   push:
     branches:
       - master
@@ -13,27 +12,18 @@ on:
 
 env:
   PACKAGE_OUTPUT: ${{ github.workspace }}\artifacts\
-  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/pinnacle-publishing/index.json'
+  PACKAGE_SOURCE: "https://nuget.pkg.github.com/pinnacle-publishing/index.json"
 
 jobs:
   build:
     name: Build
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Restore
-      run: dotnet restore
+      - name: Restore
+        run: dotnet restore
 
-    - name: Build
-      run: dotnet build --no-restore -c Release -p:GeneratePackageOnBuild=false
-
-    - name: Pack
-      run: dotnet pack --no-restore --no-build -c Release -o ${{ env.PACKAGE_OUTPUT }}
-
-    - name: Upload
-      uses: actions/upload-artifact@v3
-      with:
-          name: packages
-          path: ${{ env.PACKAGE_OUTPUT }}
+      - name: Build
+        run: dotnet build --no-restore -c Release -p:GeneratePackageOnBuild=false

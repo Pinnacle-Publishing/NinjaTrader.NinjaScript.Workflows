@@ -5,6 +5,7 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackageOutputPath>bin\$(Configuration)\artifacts\</PackageOutputPath>
 		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<NoWarn>NU5128</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -19,12 +20,6 @@
 
 	<ItemGroup>
 		<Content Include=".package\**\*" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Include=".github\workflows\build.yml">
-	    <PackagePath></PackagePath>
-	  </Content>
 	</ItemGroup>
 
 	<Target Name="NugetPushToLocal" AfterTargets="Pack">

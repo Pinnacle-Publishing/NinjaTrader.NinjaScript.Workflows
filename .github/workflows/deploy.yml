@@ -1,20 +1,43 @@
 name: Deploy
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 env:
-  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/pinnacle-publishing/index.json'
+  PACKAGE_OUTPUT: ${{ github.workspace }}\artifacts\
+  PACKAGE_SOURCE: "https://nuget.pkg.github.com/pinnacle-publishing/index.json"
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: Build
     runs-on: windows-latest
     steps:
-    - name: Download
-      uses: actions/download-artifact@v3
-      with:
-        name: packages
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Push
-      run: dotnet nuget push *.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s ${{ env.PACKAGE_SOURCE }}
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --no-restore -c Release -p:GeneratePackageOnBuild=false
+
+      - name: Pack
+        run: dotnet pack --no-restore --no-build -c Release -o ${{ env.PACKAGE_OUTPUT }}
+
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: ${{ env.PACKAGE_OUTPUT }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - name: Download
+        uses: actions/download-artifact@v3
+        with:
+          name: packages
+
+      - name: Push
+        run: dotnet nuget push *.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s ${{ env.PACKAGE_SOURCE }}
