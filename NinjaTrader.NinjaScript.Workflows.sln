@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32210.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTrader.NinjaScript.Workflows", "NinjaTrader.NinjaScript.Workflows.csproj", "{1864CDC6-B50A-4213-AC3B-97B54625E8AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1864CDC6-B50A-4213-AC3B-97B54625E8AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1864CDC6-B50A-4213-AC3B-97B54625E8AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1864CDC6-B50A-4213-AC3B-97B54625E8AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1864CDC6-B50A-4213-AC3B-97B54625E8AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4E2D2CFB-3943-456D-81D3-96A912E06FC4}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<PackageOutputPath>bin\$(Configuration)\artifacts\</PackageOutputPath>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Company>Pinnacle Publishing LLC</Company>
+		<Authors>$(Company)</Authors>
+		<Copyright>Copyright © $([System.DateTime]::Now.ToString(yyyy)) $(Company) - All rights reserved</Copyright>
+		<RepositoryUrl>https://github.com/Pinnacle-Publishing/NinjaTrader.NinjaScript.Workflows</RepositoryUrl>
+		<Description>GitHub workflows to build, pack, and deploy NinjaScripts by Pinnacle Publishing LLC.</Description>
+		<VersionPrefix>0.0.1</VersionPrefix>
+		<VersionSuffix>alpha-01</VersionSuffix>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include=".package\**\*" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include=".github\workflows\build.yml">
+	    <PackagePath></PackagePath>
+	  </Content>
+	</ItemGroup>
+
+	<Target Name="NugetPushToLocal" AfterTargets="Pack">
+		<Exec Command="dotnet nuget push $(PackageOutputPath)$(PackageId).$(PackageVersion).nupkg -s local" ContinueOnError="true" IgnoreExitCode="true" />
+	</Target>
+
+</Project>
