@@ -1,0 +1,21 @@
+name: Deploy
+
+on:
+  workflow_dispatch
+
+env:
+  PACKAGE_SOURCE: 'https://nuget.pkg.github.com/pinnacle-publishing/index.json'
+
+jobs:
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: windows-latest
+    steps:
+    - name: Download
+      uses: actions/download-artifact@v3
+      with:
+        name: packages
+
+    - name: Push
+      run: dotnet nuget push *.nupkg -k ${{ secrets.GITHUB_TOKEN }} -s ${{ env.PACKAGE_SOURCE }}
